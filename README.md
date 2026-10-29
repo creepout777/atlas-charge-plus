@@ -18,6 +18,8 @@ One platform for clients, technicians, dispatchers and administrators, on the we
 ![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=flat-square&logo=leaflet&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Google_Gemini-AI_analytics-8E75B2?style=flat-square&logo=googlegemini&logoColor=white)
 
+<sub>Engineering graduation project · EIDIA, Euro-Mediterranean University of Fes · with Atlas E-Mobility Group</sub>
+
 [**Live demo**](https://atlas-charge-plus.vercel.app) &nbsp;·&nbsp; [Android APK](apk-server/atlas-charge-plus.apk) &nbsp;·&nbsp; [Screenshots](#screenshots) &nbsp;·&nbsp; [Getting started](#getting-started)
 
 <br />
@@ -213,16 +215,14 @@ npx cap open android   # build and run from Android Studio
 
 Row-level security is enabled on every table. Clients only see their own vehicles, orders, payment methods and invoices. Technicians see the jobs assigned to them and open requests. Dispatchers and super admins get operational access through `SECURITY DEFINER` helper functions (`is_dispatcher()`, `is_super_admin()`, `is_staff()`).
 
-## Contributors
+## Team
 
-Engineering graduation project at **Euromed University of Fes (UEMF)**, **EIDIA** (School of Digital Engineering and Artificial Intelligence), in collaboration with **Atlas E-Mobility Group**.
-
-- **Yassine Aitaouicha**
-- **Haytam Hannoun**
-- **Brahim Nakkar**
-
-University supervisor: **Mr. Taha Ait Tchakoucht**
+Yassine Aitaouicha, Haytam Hannoun and Brahim Nakkar, supervised by Mr Taha Ait Tchakoucht (EIDIA, Euro-Mediterranean University of Fes), in collaboration with Atlas E-Mobility Group.
 
 ## License
 
 Copyright 2025/2026 Atlas E-Mobility Group. All rights reserved.
+
+---
+
+<div align="center"><sub>Part of <a href="https://github.com/creepout777">Yassine Aitaouicha's projects</a></sub></div>
