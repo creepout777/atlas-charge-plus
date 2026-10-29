@@ -1,175 +1,227 @@
+<div align="center">
+
+<img src="atlas%20v2/public/logo.png" alt="Atlas Charge Plus+ logo" width="84" />
+
 # Atlas Charge Plus+
 
-Atlas Charge Plus+ is an enterprise-grade, multi-platform mobile EV charging fleet management platform. It enables on-demand, mobile high-power DC rapid charging for electric vehicles through dispatchable charging trucks.
+On-demand mobile EV charging for London.<br />
+Clients book a 150 kW rapid charge from wherever they are parked, and a charging truck comes to them.<br />
+One platform for clients, technicians, dispatchers and administrators, on the web, Android and Android Automotive.
 
-The platform provides a unified ecosystem connecting vehicle owners, fleet drivers, operations dispatchers, and executive administrators across Web, Native Android, and Android Automotive OS (AAOS) interfaces.
+<br />
 
----
+![React](https://img.shields.io/badge/React-18-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-8-119EFF?style=flat-square&logo=capacitor&logoColor=white)
+![Android Automotive](https://img.shields.io/badge/Android_Automotive-Car_App_Library-3DDC84?style=flat-square&logo=android&logoColor=white)
+![Leaflet](https://img.shields.io/badge/Leaflet-1.9-199900?style=flat-square&logo=leaflet&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google_Gemini-AI_analytics-8E75B2?style=flat-square&logo=googlegemini&logoColor=white)
 
-## Executive Summary
+[**Live demo**](https://atlas-charge-plus.vercel.app) &nbsp;·&nbsp; [Android APK](apk-server/atlas-charge-plus.apk) &nbsp;·&nbsp; [Screenshots](#screenshots) &nbsp;·&nbsp; [Getting started](#getting-started)
 
-The project consists of three core application layers backed by a secure cloud infrastructure:
+<br />
 
-1. **Multi-Role Web Application**: Single-Page Application (SPA) built with React 18 and Vite 5, providing tailored interfaces for four distinct user roles (Client, Driver, Dispatcher, Super Admin).
-2. **Native Mobile Application**: Native Android application powered by Capacitor 8, leveraging device-level APIs including high-precision GPS tracking, push notifications, and custom status bar integration.
-3. **Android Automotive OS (AAOS) Application**: Dedicated in-vehicle dashboard application using the Google Car App Library, enabling real-time navigation and charging session management directly on vehicle head units.
-4. **Backend Infrastructure**: Serverless PostgreSQL database managed via Supabase, enforcing 28 Row-Level Security (RLS) policies, WebSockets real-time change data capture (CDC), and Turnstile CAPTCHA verification.
-5. **Artificial Intelligence Engine**: Integrated Google Gemini 2.5 Flash AI statistical intelligence service combined with Web Speech API for voice-driven business analytics.
+<img src="docs/screenshots/cover.png" alt="Atlas Charge Plus+ home page" width="900" />
 
----
+</div>
 
-## Key Features by User Role
+## Overview
 
-### Client Espace
-- **Mobile DC Charging Dispatch**: Pin exact GPS coordinates on an interactive Leaflet map to request 150 kW mobile rapid charging.
-- **EV Garage Management**: Register electric vehicles with battery capacities, preferred connector types (CCS Combo 2, Tesla NACS, Type 2, CHAdeMO), and port locations.
-- **Transparent Pricing & Tariffs**: Browse dynamic tariffs, rush-hour multipliers, and pre-configured kWh charging packages.
-- **Real-Time Order Tracking**: Monitor driver assignment, truck en-route status, live charging telemetry, and digital invoice generation.
+Atlas Charge Plus+ manages a fleet of mobile DC charging trucks across Greater London. A client drops a pin, picks a vehicle and a charge package, and the platform dispatches the nearest available truck. The technician drives to the car, plugs in, and the client follows the session live, from the truck's arrival to the final invoice.
 
-### Driver Cockpit
-- **Intervention Queue**: Receive and accept mobile charging dispatch assignments in real-time.
-- **Turn-by-Turn GPS Navigation**: Route optimization directly to the client's parked vehicle location.
-- **Live DC Telemetry Engine**: Stream active charging metrics including output power (kW), total energy dispensed (kWh), truck buffer battery reserve, and vehicle state of charge.
+The project has three front ends on a single Supabase backend:
 
-### Fleet Dispatcher Console
-- **Interactive Fleet Operations Map**: Live GPS breadcrumb tracking of mobile charging units across London.
-- **Resource Allocation**: Monitor truck readiness, technician on-duty status, and active queue dispatches.
-- **Tariff & Package Control**: Manage dynamic callout fees, energy rates, and surge pricing schedules.
+| Layer | What it does |
+|---|---|
+| **Web app** | React SPA with a public site and four role-based workspaces (client, technician, dispatcher, super admin) |
+| **Android app** | The same app packaged with Capacitor 8, using native GPS, notifications and status bar control |
+| **Android Automotive app** | In-vehicle screens for the technician, built with the Google Car App Library: job queue, job details, navigation and charging |
+| **Backend** | Supabase: PostgreSQL with row-level security on every table, authentication, realtime updates |
 
-### Super Admin & Intelligence
-- **Gemini AI Statistical Intelligence**: Natural language text and voice querying over 8 aggregate fleet performance metrics using Google Gemini.
-- **Executive Analytics**: Gross dispatch revenue, energy dispensed, customer satisfaction scores (CSAT), and driver leaderboards.
-- **System Access & Security Control**: Role-based access control (RBAC) and real-time database audit logging.
+## Features
 
----
+**Client**
+- Request a mobile rapid charge by dropping a pin on the map
+- Register vehicles with battery size, connector (CCS Combo 2, Tesla NACS, Type 2, CHAdeMO) and charge port location
+- Compare tariffs, rush-hour multipliers and kWh packages before booking
+- Follow the order live: technician assignment, truck en route, charging telemetry, then an itemised VAT invoice
+- Manage payment methods, invoices, profile, referral code and notification settings
 
-## Android Automotive OS (AAOS) Integration
+**Technician**
+- Queue of open requests, with one-tap claim and navigation to the client's car
+- Job flow from arrival to charging to completion
+- Live charging telemetry: output power, energy delivered, truck buffer and vehicle state of charge
 
-The platform extends directly into the vehicle's infotainment system via Google's Car App Library and native Android Auto services:
+**Fleet dispatcher**
+- Live fleet map with every mobile unit and active dispatch
+- Truck status, stored energy and depot management
+- Technician duty status, licences and truck assignment
+- Dispatch queue with manual assignment
 
-- **Canvas 2D Map Rendering**: High-performance vector map navigation integrated into vehicle displays.
-- **In-Vehicle Session Management**: Initiate, monitor, and finalize charging dispatches without leaving the driver cockpit.
-- **Native Bridge (`CarDataBridge`)**: Seamless synchronization between vehicle head unit events and the Supabase WebSocket real-time cluster.
+**Super admin**
+- Revenue, energy dispensed, fleet readiness and customer satisfaction at a glance
+- Natural-language and voice questions about the fleet, answered by Google Gemini over live aggregates
+- Package demand insights and GPS breadcrumb history for every truck
+- Full control over tariffs, packages, connectors and UI labels
 
----
+## Screenshots
 
-## Technical Architecture & Technology Stack
+<sub>Captured from a local build of the web app at 1440 × 900 using demo data.</sub>
 
-### Frontend & Mobile
-- Core Framework: React 18, Vite 5, JavaScript (ES2022)
-- State & Context Management: React Context API (`AuthContext`, `DataContext`, `OrderContext`)
-- Mapping & Geolocation: Leaflet 1.9, OpenStreetMap / Carto Basemaps, `@capacitor/geolocation`
-- UI & Styling: Custom Vanilla CSS design system, Lucide Icons, responsive dark mode
-- Mobile Runtime: Capacitor 8 (Android SDK 24+)
-- In-Vehicle Dashboard: Android Automotive OS, Google Car App Library
+### Public website
 
-### Backend & Cloud
-- Database & Auth: Supabase (PostgreSQL 15), GoTrue Authentication, WebSockets Realtime
-- Security: 28 Row-Level Security (RLS) policies, `SECURITY DEFINER` SQL helper functions
-- Artificial Intelligence: Google Gemini 2.5 Flash API, Web Speech API (Voice-to-Text)
-- Bot Protection: Cloudflare Turnstile CAPTCHA
+<img src="docs/screenshots/home-how-it-works.png" alt="How it works" width="100%" />
 
----
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/home-features.png" alt="Features" /><p align="center"><b>Why Atlas Charge+</b></p></td>
+    <td width="50%"><img src="docs/screenshots/tariffs.png" alt="Tariffs and packages" /><p align="center"><b>Tariffs and charge packages</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/connectors.png" alt="Connector standards" /><p align="center"><b>Charging hardware and connector standards</b></p></td>
+    <td><img src="docs/screenshots/reviews.png" alt="Customer reviews" /><p align="center"><b>Customer reviews</b></p></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/login.png" alt="Sign in with demo roles" /><p align="center"><b>Sign in, with one-click demo accounts for each role</b></p></td>
+  </tr>
+</table>
 
-## Repository Structure
+### Client workspace
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/client-vehicles.png" alt="EV garage" /><p align="center"><b>EV garage</b></p></td>
+    <td width="50%"><img src="docs/screenshots/client-wallet.png" alt="Payment methods" /><p align="center"><b>Payment methods</b></p></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/client-invoices.png" alt="Invoices" /><p align="center"><b>Itemised VAT invoices</b></p></td>
+    <td><img src="docs/screenshots/client-profile.png" alt="Profile" /><p align="center"><b>Profile, referrals and notifications</b></p></td>
+  </tr>
+</table>
+
+### Fleet operations console
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/fleet-units.png" alt="Mobile charging units" /><p align="center"><b>Mobile charging units</b></p></td>
+    <td width="50%"><img src="docs/screenshots/fleet-technicians.png" alt="Technicians" /><p align="center"><b>Field technicians</b></p></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/fleet-dispatches.png" alt="Dispatch queue" /><p align="center"><b>Active dispatches and assignment</b></p></td>
+  </tr>
+</table>
+
+### Analytics
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/analytics-ai.png" alt="AI statistics assistant" /><p align="center"><b>AI statistics assistant</b></p></td>
+    <td width="50%"><img src="docs/screenshots/analytics-insights.png" alt="Executive insights" /><p align="center"><b>Executive insights and package demand</b></p></td>
+  </tr>
+</table>
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph Clients
+        W[Web app<br/>React + Vite]
+        A[Android app<br/>Capacitor]
+        C[Android Automotive<br/>Car App Library]
+    end
+    subgraph Supabase
+        DB[(PostgreSQL<br/>row-level security)]
+        AU[Auth]
+        RT[Realtime]
+    end
+    W --> AU & DB & RT
+    A --> AU & DB & RT
+    C -->|REST| DB
+    W -->|analytics questions| G[Google Gemini]
+    A -. CarDataBridge .-> C
+```
+
+| Area | Technologies |
+|---|---|
+| Web | React 18, Vite 5, React Router 6, Context API, Leaflet 1.9, Lucide icons, custom CSS design system |
+| Mobile | Capacitor 8 (Android SDK 24+), Geolocation, Local Notifications, Status Bar, Splash Screen |
+| In-vehicle | Android Automotive OS, Google Car App Library, Java, `CarDataBridge` plugin syncing the driver session |
+| Backend | Supabase: PostgreSQL, GoTrue auth, Realtime, row-level security with `SECURITY DEFINER` role helpers |
+| AI | Google Gemini API, Web Speech API for voice input |
+| Security | Cloudflare Turnstile on sign-in and sign-up, role-based routes, RLS on all 16 tables |
+| Hosting | Vercel (web), APK distribution page in `apk-server/` |
+
+## Project structure
 
 ```
 Atlas-Charge-Plus/
-├── atlas v2/                   # Core Web, Mobile & AAOS Source Code
-│   ├── android/                # Native Android Studio Project (Capacitor wrapper)
-│   ├── public/                 # Static assets, icons, and hero media
+├── atlas v2/
+│   ├── android/              # Capacitor Android project, including the Android Automotive screens
+│   ├── public/               # Static assets, logo and hero images
 │   ├── src/
-│   │   ├── components/         # Reusable UI components, modals, and navigation
-│   │   ├── context/            # Auth, Data, and Order state contexts
-│   │   ├── pages/              # 14 role-based view pages
-│   │   ├── services/           # Supabase client, Gemini AI, and Capacitor bridges
-│   │   ├── styles/             # Modular CSS design system and variables
-│   │   └── utils/              # Helper functions, math utilities, and formatters
-│   ├── capacitor.config.json   # Capacitor native project settings
-│   ├── package.json            # Node.js dependencies and build scripts
-│   └── vite.config.js          # Vite build and bundling configuration
-├── apk-server/                 # Pre-compiled Android APK binaries and distribution page
-└── report/                     # Technical academic report and UML PlantUML diagrams
+│   │   ├── components/       # Layout, maps, telemetry widgets, AI assistant, shared UI
+│   │   ├── context/          # Auth, data and order state
+│   │   ├── pages/            # 14 pages across the public site and the four roles
+│   │   ├── services/         # Supabase API services, Gemini stats, native bridges
+│   │   └── styles/           # Design system
+│   ├── supabase/schema.sql   # Tables, indexes, role helpers and RLS policies
+│   └── test_system_suite.mjs # End-to-end checks against Supabase for all four roles
+├── apk-server/               # Prebuilt Android APKs and download page
+└── docs/screenshots/         # Images used in this README
 ```
 
----
+## Getting started
 
-## Getting Started
+**Requirements**: Node.js 18+, npm 9+, a Supabase project, and Android Studio for the native builds.
 
-### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm (v9.0.0 or higher)
-- Android Studio (for native Android / AAOS builds)
+```bash
+cd "atlas v2"
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build in dist/
+```
 
-### Installation & Development
+**Configuration** (`atlas v2/.env`):
 
-1. Navigate to the application directory:
-   ```bash
-   cd "atlas v2"
-   ```
+| Variable | Purpose |
+|---|---|
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anonymous key |
+| `VITE_GEMINI_API_KEY` | Optional. Enables the AI assistant (a key can also be entered in the app) |
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+**Database**: run `atlas v2/supabase/schema.sql` in the Supabase SQL editor to create the 16 tables, role helper functions and row-level security policies.
 
-3. Start the local development server:
-   ```bash
-   npm run dev
-   ```
+**Android and Android Automotive**:
 
-4. Build for production:
-   ```bash
-   npm run build
-   ```
+```bash
+npx cap sync android
+npx cap open android   # build and run from Android Studio
+```
 
-### Mobile Build (Capacitor Android)
+## Database and security
 
-1. Sync web build artifacts to native Android project:
-   ```bash
-   npx cap sync android
-   ```
+| Table | Contents |
+|---|---|
+| `users`, `client_profiles`, `driver_profiles` | Accounts, roles, referral codes, licences, duty status and ratings |
+| `fleet_trucks`, `truck_connectors`, `connector_types` | Trucks, stored energy, GPS position and mounted connectors |
+| `customer_vehicles` | Client EVs, battery size, connector and port location |
+| `charge_packages`, `pricing_tariffs` | kWh packages, callout fees, per-kWh rates and peak multipliers |
+| `orders`, `order_telemetry_logs`, `truck_gps_breadcrumbs` | Order state machine with 8 statuses, charging telemetry and GPS history |
+| `payment_methods`, `order_invoices`, `order_reviews` | Payments, invoices and customer reviews |
+| `system_ui_labels` | Editable UI labels |
 
-2. Open in Android Studio:
-   ```bash
-   npx cap open android
-   ```
+Row-level security is enabled on every table. Clients only see their own vehicles, orders, payment methods and invoices. Technicians see the jobs assigned to them and open requests. Dispatchers and super admins get operational access through `SECURITY DEFINER` helper functions (`is_dispatcher()`, `is_super_admin()`, `is_staff()`).
 
----
+## Contributors
 
-## Database Schema & Security
-
-The platform operates on a 16-table relational PostgreSQL schema on Supabase:
-
-- `users`: Core authentication identity table linked with Supabase Auth.
-- `client_profiles`: Client preferences, referral codes, and default payment methods.
-- `fleet_trucks`: Mobile charging truck hardware specs, GPS coordinates, and battery state.
-- `driver_profiles`: Driver licenses, assigned trucks, service status, and ratings.
-- `connector_types`: Supported charging plug specifications (CCS2, NACS, CHAdeMO, Type 2).
-- `customer_vehicles`: Registered EV specifications, battery pack sizes, and port locations.
-- `charge_packages`: Standard kWh charging bundles.
-- `pricing_tariffs`: Dynamic pricing rates, callout fees, and peak-hour multipliers.
-- `orders`: Master order state machine supporting 8 distinct order statuses.
-- `order_telemetry_logs`: Real-time charging telemetry samples (kW, kWh, battery %).
-- `truck_gps_breadcrumbs`: Historical GPS position log for fleet tracking.
-- `order_invoices`: Financial transaction invoices and line-item breakdowns.
-
-Row-Level Security (RLS) is strictly enforced across all tables, ensuring clients only access their own vehicles and orders, while drivers and dispatchers receive scoped operational data.
-
----
-
-## Project Contributors
-
-Developed as part of the engineering graduation project at **Euromed University of Fes (UEMF)** — **EIDIA** (School of Digital Engineering and Artificial Intelligence) in collaboration with **Atlas E-Mobility Group**:
+Engineering graduation project at **Euromed University of Fes (UEMF)**, **EIDIA** (School of Digital Engineering and Artificial Intelligence), in collaboration with **Atlas E-Mobility Group**.
 
 - **Yassine Aitaouicha**
 - **Haytam Hannoun**
 - **Brahim Nakkar**
 
-**University Supervisor**: Mr. Taha Ait Tchakoucht  
-**Host Organization**: Atlas E-Mobility Group  
-
----
+University supervisor: **Mr. Taha Ait Tchakoucht**
 
 ## License
 
